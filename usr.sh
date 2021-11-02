@@ -141,6 +141,10 @@ sudo sed -i "s:Username:$UserName:g" /etc/sudoers
 
 sudo chmod 755 -R /home/$UserName
 
+Print_Style "Removiendo archivo usr.sh" "$BLUE"
+sudo rm -rf usr.sh
+
+
 # Print_Style "Asignando permisos root a $UserName" "$MAGENTA"
 # sudo sed -i "/Username ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
 # sudo sed -i "$a Username ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
