@@ -56,7 +56,7 @@ if [ ! -n "`which sudo`" ]; then
   apt-get update && apt-get install sudo -y
 fi
 sudo apt-get update
-sudo apt-get install sed
+sudo apt-get install sed -y
 
 echo "========================================================================="
 echo "Crea el Nombre de usuario (predeterminado user): "
@@ -70,6 +70,7 @@ Print_Style "Creando Usuario $UserName" "$GREEN"
 sudo useradd -u 0 -o -g 0 $UserName
 sleep 2s
 echo "========================================================================="
+
 
 
 echo "========================================================================="
@@ -88,7 +89,7 @@ echo "========================================================================="
 
 echo "========================================================================="
 Print_Style "Creando Grupo para el usuario $UserName" "$GREEN"
-sudo chown $UserName:$UserName -R /home/$UserName
+sudo chown $UserName:root -R /home/$UserName
 sleep 2s
 echo "========================================================================="
 
@@ -121,8 +122,18 @@ echo "========================================================================="
 echo "========================================================================="
 Print_Style "Asignando shell: bash" "$GREEN"
 sudo usermod -s /bin/bash
+sudo usermod --shell /bin/bash --home /home/$UserName $UserName
+cp /etc/skel/.* /home/$UserName/
 sleep 2s
 echo "========================================================================="
+
+
+# Print_Style "Asignando permisos root a $UserName" "$MAGENTA"
+# sudo sed -i "/Username ALL\=\(ALL\) NOPASSWD\: ALL/d" /etc/sudoers
+# sudo sed -i "$a Username ALL\=\(ALL\) NOPASSWD\: ALL" /etc/sudoers
+# sudo sed -n "/Username ALL\=\(ALL\) NOPASSWD\: ALL/p" /etc/sudoers
+
+# sudo sed -i "s:Username:$UserName:g" /etc/sudoers
 
 
 
@@ -141,35 +152,4 @@ sudo sed -i "s:Username:$UserName:g" /etc/sudoers
 
 sudo chmod 755 -R /home/$UserName
 
-Print_Style "Removiendo archivo usr.sh" "$BLUE"
 sudo rm -rf usr.sh
-
-
-# Print_Style "Asignando permisos root a $UserName" "$MAGENTA"
-# sudo sed -i "/Username ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
-# sudo sed -i "$a Username ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
-# sudo sed -n "/Username ALL=(ALL) NOPASSWD: ALL/p" /etc/sudoers
-
-# sudo sed -i "s:Username:$UserName:g" /etc/sudoers
-
-# sudo chmod 755 -R /home/$UserName
-
-
-#wget -O usr.sh https://raw.githubusercontent.com/digiraldo/Minecraft-BE-Server-Panel-Admin-Web/master/usr.sh
-#sudo chmod +x usr.sh
-#./usr.sh
-
-
-
-
-# sudo useradd -m -g root -G www-data - s /bin/bash $UserName
-
-
-# sudo useradd -m -g Usuarios -G gestion - s /bin/bash usuario
-# Explicación:
-
-#  -m: Crear automáticamente la carpeta del usuario el la carpeta /Home/<NombreUsuario>
-#  -g: grupo principal al que sera agregado
-#  -G: Grupos secundarios al que pertenecerá.
-#  -s: Shell que utilizara por defecto el usuario.
-#  usuario: Nombre del usuario.
