@@ -52,6 +52,12 @@ function read_with_prompt {
 
 cd ~
 
+if [ ! -n "`which sudo`" ]; then
+  apt-get update && apt-get install sudo -y
+fi
+sudo apt-get update
+sudo apt-get install sed
+
 echo "========================================================================="
 echo "Crea el Nombre de usuario (predeterminado user): "
 Print_Style "Valores permitidos: "Maysculas", "Minusculas": Sin Espacios " "$CYAN"
