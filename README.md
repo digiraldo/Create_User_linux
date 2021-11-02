@@ -6,7 +6,7 @@
 En este archivo bash crearemos un usuario con privilegios de root en Linux
 
 ```
-wget https://raw.githubusercontent.com/digiraldo/Minecraft-BE-Server/main/SetupMinecraft.sh
-chmod +x SetupMinecraft.sh
-./SetupMinecraft.sh
+wget https://raw.githubusercontent.com/digiraldo/Create_User_linux/main/usr.sh
+chmod +x usr.sh
+./usr.sh
 ```
