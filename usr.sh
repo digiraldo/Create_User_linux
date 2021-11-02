@@ -125,14 +125,30 @@ sleep 2s
 echo "========================================================================="
 
 
-Print_Style "Asignando permisos root a $UserName" "$MAGENTA"
-sudo sed -i "/Username ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
-sudo sed -i "$a Username ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
-sudo sed -n "/Username ALL=(ALL) NOPASSWD: ALL/p" /etc/sudoers
 
+Print_Style "Asignando permisos root a $UserName" "$MAGENTA"
+# Elimina lineas que contenga /Username ALL=(ALL) NOPASSWD: ALL
+sudo sed -i "/Username ALL\=\(ALL\) NOPASSWD\: ALL/d" /etc/sudoers
+
+# Crea linea /Username ALL=(ALL) NOPASSWD: ALL al final del archivo 
+sudo sed -i "$a Username ALL\=\(ALL\) NOPASSWD\: ALL" /etc/sudoers
+
+# Muestra linea /Username ALL=(ALL) NOPASSWD: ALL del archivo
+sudo sed -n "/Username ALL\=\(ALL\) NOPASSWD\: ALL/p" /etc/sudoers
+
+# Cambia /Username por el nombre de usuario
 sudo sed -i "s:Username:$UserName:g" /etc/sudoers
 
 sudo chmod 755 -R /home/$UserName
+
+# Print_Style "Asignando permisos root a $UserName" "$MAGENTA"
+# sudo sed -i "/Username ALL=(ALL) NOPASSWD: ALL/d" /etc/sudoers
+# sudo sed -i "$a Username ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
+# sudo sed -n "/Username ALL=(ALL) NOPASSWD: ALL/p" /etc/sudoers
+
+# sudo sed -i "s:Username:$UserName:g" /etc/sudoers
+
+# sudo chmod 755 -R /home/$UserName
 
 
 #wget -O usr.sh https://raw.githubusercontent.com/digiraldo/Minecraft-BE-Server-Panel-Admin-Web/master/usr.sh
